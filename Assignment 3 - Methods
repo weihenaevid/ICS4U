@@ -1,0 +1,147 @@
+/* 
+ * Viduni Weihena Epa 
+ * Assignment 3
+ * September 16 2019
+ */
+
+import java.util.Scanner;
+public class I_Assignment3 {
+	static Scanner scan = new Scanner (System.in);//create scanner object
+	static int menuSelection;//stores the users selection
+
+	public static void main (String args[]) {	
+		String menuOptions [] = new String [] { " hear a knock knock joke.", // a string array holds all of the possible menu selections
+				" find the highest value of 3 integer numbers",
+		" calculate the roots of a quadratic."};
+		for (int i = 0; i < menuOptions.length; i++) {//use a for loop to go through the array
+			say("Type " + i + " to"+ menuOptions[i]);//print the array out to the user and tell them which key to press to selection the option
+		}
+		say("Type -1 to exit the program");//offer an option for the user to exit the program so they are not stuck inside forever
+		menuSelection = scan.nextInt();//sets the next int the user inputs into the menuSelection variable
+
+		do {
+			if (menuSelection == 0) {//if the user chooses to hear a knock knock joke 
+				knockKnock();//calls the knock knock method
+			} 
+			else if (menuSelection == 1) {//if the user chooses to find the highest number between three integers
+				int num1 = askInt("Enter your first number.");//have the user enter three numbers
+				int num2 = askInt("Enter your second number.");
+				int num3 = askInt("Enter your third number.");
+				say("The highest number is " + highestInt(num1,num2,num3) + " .");//print to the user which number is highest number
+
+				say("**************************************************************************************************************");//used to separate the code above from the code below - from the user's perspective (no real purpose)
+				say("Now what would you like to do?");
+				resetMenu();//restart the menu so the user can keep going
+			}
+			else if (menuSelection == 2) {//if the user choose to calculate the roots of a quadratic 
+				double a = askDouble("Enter the value of a.");//have the user enter three numbers for a b and c
+				double b = askDouble ("Enter the value of b.");
+				double c = askDouble ("Enter the value of c.");
+				rootCalc(a,b,c);//call the rootCalc method to calculate the roots using the values inputed by the user for a b and c
+
+				say("**************************************************************************************************************");//used to separate the code above from the code below - from the user's perspective (no real purpose)
+				say("What would you like to do?");
+				resetMenu();//restart the menu so the user can keep going
+			}
+			else if (menuSelection == -1) {
+				say("You have selected to exit the program. Have a nice day.");//tell the user what they have selected
+				System.exit(menuSelection);//close the program
+			}
+			else {
+				//if the user did not select a valid menu option
+				say("The number you chose is not a valid menu option.");//tell the user about their mistake
+				say("You need to enter either 0, 1, 2 or -1.");//tell the user what to do now
+				scan.next();//clears the error
+			}
+		}while(menuSelection < (menuOptions.length-1));//keep repeating the loop until
+
+
+	}
+	
+	//say - prints out a message to the user (shortcut for System.out.println)
+
+	static void say (String msg) { 
+		System.out.println(msg);
+	}
+	
+	//askInt - tells the to input an integer and returns that integer 
+
+	static int askInt (String prompt) {
+		say (prompt);
+		return scan.nextInt();
+	}
+
+
+	//askDouble - same purpose as the function above but used for a double instead of an int
+	static double askDouble (String prompt) {
+		say (prompt);
+		return scan.nextDouble();
+	}
+
+
+	//resetMenu - resets and displays menu selections to the user so they can choose again
+	static void resetMenu() {
+		menuSelection = 3;//set the variable menuSelection to a number that is not an option of the below array so it gets out of the option method loop
+		String menuOptions [] = new String [] {" hear a knock knock joke.",//display the menu selections out to the user
+											   " find the highest value of 3 integer numbers",
+											   " calculate the roots of a quadratic."};
+		for (int i = 0; i < menuOptions.length; i++) {//use a for loop to go through the array
+			say("Type " + i + " to"+ menuOptions[i]);//print the array out to the user and tell them which key to press to selection the option
+		}
+		say("Type -1 to exit the program");//offer an option for the user to exit the program so they are not stuck inside forever
+		menuSelection = scan.nextInt();//sets the next int the user inputs into the menuSelection variable
+	}
+
+
+	//knockKnock - holds the code that runs the knockKnock joke
+	static void knockKnock() {
+		say("Knock knock");//print knock knock to the user
+		String userInput1 = scan.nextLine();//have the users input be set into the variable userInput1
+		if (userInput1.contentEquals("Who's there?")|| userInput1.contentEquals("Who's there") || userInput1.contentEquals("who's there?")|| userInput1.contentEquals("who's there")) {//if the user inputs who's there?
+			say("Annie");//print Annie to the user	
+			String userInput2 = scan.nextLine();//have the user's input be set into the variable userInput2
+			if (userInput2.contentEquals("Annie who") || userInput2.contentEquals("Annie who?")|| userInput2.contentEquals("annie who") || userInput2.contentEquals("annie who?")) {//if the user input's Annie who?
+				say("Annie thing you can do, I can do better.");//print the joke to the user
+				say("**************************************************************************************************************");//used to separate the code above from the code below - from the user's perspective (no real purpose)
+
+				say("Thank you for listening to my joke, now what would you like to do?");//ask the user what they want to do now
+				resetMenu();//reprint the options to the user
+			}
+		} 
+	}
+
+
+	//highestInt - holds the code that determines which out of the three integers is the highest
+	static int highestInt(int a, int b, int c) {
+		if (a > b && a > c) {//if the first number is greater than both of the other integers
+			return a;//return the first number
+		} 
+		else if (b > c && b > a) {//if the second number is greater than both of the other integers
+			return b;//return the second number
+		}
+		else if (c > a && c > b) {//if the third number is greater than both of the other integers
+			return c;//return the third number
+		}
+		return 0;
+	}
+
+
+	//rootCalc - holds the code that calculates the roots of a quadratic
+	static void rootCalc(double a, double b, double c) {
+		//the discriminate formula - [x = b^2 - 4ac]
+		double discrim = (b*b)-(4*a*c);//calculate the discriminate from the three values the user inputs
+		
+		if (discrim == 0 ) {//if the discriminate is zero that means there is one root
+			double root1 = -b / 2*a;//calculate the value of that root
+			say("There is one real root, " + root1 + " .");//output the value of the root to the user
+		} 
+		else if (discrim > 0) {//if the discriminate is positive that means there are two roots
+			double root1 = (- b + Math.sqrt(discrim))/(2*a);//calculate the value of the first root
+			double root2 = (- b - Math.sqrt(discrim))/(2*a);//calculate the value of the second root
+			say("There are two real roots, " + root1 + " and " + root2 + " .");//output the value of the roots to the user
+		}
+		else if (discrim < 0) {//if the discriminate is negative that means there are no roots
+			say("There are no real roots.");//output that to the user so they are aware
+		}
+	}
+}
