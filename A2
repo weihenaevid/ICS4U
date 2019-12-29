@@ -1,0 +1,69 @@
+/* <----- Click this to Expand for Instructions
+ * 
+ * Exercise 5.8 - ASSIGNMENT 2
+ * 
+ * You now have enough knowledge to complete Assignment 2. You will need to use your knowledge of the Scanner class, conditional statements
+ * and loops.
+ * 
+ * NOTE: A "Sentinel" value is a value that is not normally a possible value that provides a condition under which the While loop can 
+ * terminate. For instance, you could use while(studentMark != -1) as students are not expected to get a mark of -1.
+ * 
+ * ==========ASSIGNMENT 2==========
+ * 
+ * In groups of 1-3 people, write a program to do the following:
+ * •	Write a program to add up a student’s test marks and find an average.
+ * •	The user should be prompted as to whether they know how many tests there will be in the semester.
+ * •	If they do know the number of tests, use an appropriate loop structure to add up their test marks and calculate the average of the tests.
+ * •	If they do not know the number of tests in a semester, use an appropriate loop structure to add up the test marks until a sentinel is reached, and then output the average of the tests entered.
+ * •	If they respond with an invalid choice, give an error message.
+ *	
+ * EXTENSIONS:
+ * 1)	Was your program written efficiently? Why or why not? If it wasn’t efficient, can you modify it to use fewer lines of code? 
+ * 2)	Did you have any errors in your calculations? If so, what happened? Can you troubleshoot them and correct? 
+ * 
+ */
+import java.util.Scanner;//import scanner
+
+public class H_Assignment2 {
+	public static void main (String args []) {
+		Scanner scan = new Scanner (System.in);//create scanner object
+		
+		//global variables
+		double total = 0;
+		double testMarks = 0;
+		
+		//introductory prompts to user
+		System.out.println("Welcome to AverageCalc!");
+		System.out.println("Do you know how many tests you will have this semester? Please answer yes or no.");
+		String tests = scan.nextLine();//variable tests holds whether or not the user knows the number of tests they will have
+		
+		if (tests.contentEquals("yes") || tests.contentEquals("Yes")) {//the user knows the number of tests they will have
+			System.out.println("How many will you have?");
+			int numTests = scan.nextInt();
+			System.out.println("Enter your marks.");
+			
+			for (int i = 0; i < numTests; i++) {//repeat 
+				testMarks=scan.nextDouble();//sets the variable testMarks equal to the last value the user inputed
+				total += testMarks;//adds the last value inputed to the sum of previous values entered
+				}
+			System.out.println("The average of your test marks is " + total/numTests);//output the end average to the user
+		} 
+		
+		else if (tests.contentEquals("no") || tests.contentEquals("No")) {//the user does not know the user of tests they will have
+			System.out.println("Please begin inputing your numbers.");
+			
+			int looprepeats = 0;//keep tracks of how many times the loop repeats
+			while(testMarks != -1) {
+				testMarks = scan.nextDouble();//sets the variable testMarks to the last value the user inputed
+				total += testMarks;//adds the last value inputed to the sum of previous values entered
+				looprepeats += 1;//adds one each time the loop repeats
+				if (testMarks == -1) {//once the sentinel value is inputed, the user has inputed all of the test marks
+					System.out.println("THe average of your testmarks is "+ (total+1)/(looprepeats-1));//output the final average to the user
+				}
+			}
+		}
+		else {
+			System.out.println("Error. Please restart the program and input either yes or no");//if the user makes an invalid choice, tell them to start over and input the right choice
+		}
+	}
+}
