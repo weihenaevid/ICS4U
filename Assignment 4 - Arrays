@@ -1,0 +1,75 @@
+/* 
+ * Viduni Weihena Epa 
+ * Assignment 4
+ * September 16 2019
+ */
+import java.util.Scanner;//import scanner 
+public class D_Assignment4 {
+	static Scanner scan = new Scanner(System.in);//create scanner object
+	
+	public static void main (String args []) {
+	int [] mainArr = new int [10];//declare and initialize an array with ten elements
+	mainArr = fillArray(mainArr);//fill the array with random integers using the fillArray method
+	
+	say("Your new array is:");
+	printArray(mainArr);//display to the user their randomly generated array
+	say("********************************************************************************************************************");
+	say("Your new sorted array is");
+	printArray(sortArray(mainArr));//display to the user their sorted array
+	say("********************************************************************************************************************");
+	say("The lowest number of your array is " + mainArr[0]);//print the lowest number in the array to the user (bc the array has been sorted, element 0 is the lowest number)
+	say("The average of your array is " + avArray(mainArr) + ".");//prints the average of the array elements using the avArray method
+	}
+	
+	//shortcut for 'system.out.println'
+	static void say (String msg) { 
+		System.out.println(msg);
+	}
+	
+	//fills the array with random numbers from 0 to 100
+	static int [] fillArray (int [] a) {
+		// define the range 
+        int max = 100; 
+        int min = 0; 
+        int range = max - min + 1; 
+        
+        //use a for loop to go through the array and assign every element a new random value
+       for (int i = 0; i < a.length; i++) { 
+           a[i] = (int)(Math.random() * range) + min; //sets the current element to a random number within the range
+        }   
+		return a;//return the new randomly generated array so it can be printed for the user to see
+	}
+	
+	//displays/prints array to user
+	static void printArray(int [] a) {
+		for(int i = 0; i < a.length; i++) {//use a for loop to go through the array 
+			say("" + a [i]); //print element out to user [must include "" bc the say method parameters are String and not solely ints)
+		}
+	}
+
+	//finds the average of the array
+	static int avArray (int [] a) {
+		int total= 0;//declare and initialize a variable to hold the total sum of the array
+		for (int i = 0; i <a.length; i++) {//use a for loop to go through the array
+			total += a[i];//add the current element to the variable total (which holds the sum of previous elements)
+		}
+		return total/a.length;//return the total sum divided my the length of the array (10) to find the average
+	}
+
+	//sorts the elements of the array in ascending order
+	static int [] sortArray(int [] a) {
+		int temp = 0;//declare and initialize a temporary variable to use to shift the position of elements to put them into ascending order
+		//let i represent the primary element and let j represent the next element
+		for (int i =0; i < a.length; i++) {
+			for (int j = i+1; j < a.length; j++){
+				if (a[i] > a[j]) {//if the first number is bigger than the second number
+				//with the assistance of the temp variable the two values essentially switch places so they are in ascending order
+				temp = a[i];
+				a[i] = a[j];
+				a[j] = temp;
+				}
+			}
+		}
+		return a;//return the now sorted array so it can be printed for the user to see
+	}
+}
