@@ -1,0 +1,54 @@
+/* * * * * * * * * * * * * * * * * * * * * * * * *
+ *                                               *
+ * ICS 4U1 - Unit 2 - I/O and Exception Handling *
+ *      "Choose Your Own Adventure" 		     *
+ *                                               *
+ *               Viduni Weihena Epa              *
+ *                                               *
+ *                 Decision Tree                 *
+ *                       A                       *
+ *                      / \                      *
+ *                     B   C                     *
+ *                    / \ / \                    *
+ *                   D   E   F 					 *
+ *                   	/  \ /		             *
+ *                 	   G    H                 	 *
+ * * * * * * * * * * * * * * * * * * * * * * * * *				
+A=0		* [ myArray[0][0] ] [ myArray[1][0] ] [ myArray[2][0] ] [ myArray[3][0] ] [ myArray[4][0] ]
+B=1		* [ myArray[0][1] ] [ myArray[1][1] ] [ myArray[2][1] ] [ myArray[3][1] ] [ myArray[4][1] ] 
+C=2		* [ myArray[0][2] ] [ myArray[1][2] ] [ myArray[2][2] ] [ myArray[3][2] ] [ myArray[4][2] ]
+D=3		* [ myArray[0][3] ] [ myArray[1][3] ] [ myArray[2][3] ] [ myArray[3][3] ] [ myArray[4][3] ]
+E=4		* [ myArray[0][4] ] [ myArray[1][4] ] [ myArray[2][4] ] [ myArray[3][4] ] [ myArray[4][4] ]
+F=5		* [ myArray[0][5] ] [ myArray[1][5] ] [ myArray[2][5] ] [ myArray[3][5] ] [ myArray[4][5] ]
+G=6		* [ myArray[0][6] ] [ myArray[1][6] ] [ myArray[2][6] ] [ myArray[3][6] ] [ myArray[4][6] ]
+H=7		* [ myArray[0][7] ] [ myArray[1][7] ] [ myArray[2][7] ] [ myArray[3][7] ] [ myArray[4][7] ]*/
+import java.util.Scanner;
+
+public class I_Assignment5 {
+	public static void main(String[] args) {	
+		//fill a string 2-d array with all of the intros/prompts, choice A and choice B as the first three columns and the last two columns as the number of the new branch if option A/B was chosen (each row represents a branch)
+		String[][] prompts = new String[][] { {"You show up to your first period class but no one is there. No teacher. No other students." + "\n" +"Do you:", "A) Walk right back out", "B) Stay in class and take a nap because you pulled an all nighter", "1","2"},     
+			{"You are halfway home when you get a text from your best friend, asking where you are because you were supposed to go to Tims together." + "\n" +"Do you:", "A) Text them to reschedule", "B) Start walking back to school","3","4"}, 
+			{"You suddenly wake up and realize you have been sitting in the classroom for the entire period." + "\n" + "Do you:","A) Go home", "B) Go around the school to try and find your friends","4","5"}, 
+			{"You finally realize that yesterday was the day you were supposed to leave for the grad trip to Ottawa.","All of your friends and classmates are in Ottawa having the time of their lives and you're sitting at home in your PJs.","-1","-1"}, 
+			{"You don't find your friends but all of a sudden you finally get service and get 50+ texts from your friends asking where you are." + "\n" + "Your friends last texts are 'Come to the gym'"+ "\n" + "Do you:","A) Pretend you didn't see their messages","B) Go to the gym","6","7"}, 
+			{"You don't find your friends but you hear noises coming from the gym.","You decide to investigate, type 'A'","7","-1"},
+			{"As you are walking, you feel a sharp pain in your chest and collapse onto the floor.","It turns out asbestos was discovered at school and it was being removed today so it was declared a school closure day.", "Everyone at school was getting checked and treated for it but unfortunately you forgot about this and died as a result of excessive asbestos exposure to your lungs","-1","-1"},
+			{"You walk into the dark gym and all of sudden BANG!" + "\n"+"The lights go on and you see all of friends and family holding a giant 'HAPPY BIRTHDAY'sign" +"\n"+ "You walk towards them when you suddenly slip on a banana peel" + "\n" +"You wake up in your room with your alarm going off, and you realize it was all a dream.","-1","-1"},
+		};		
+		int branchID = 0;//the first row of the 2D array represents branch A and starts at reference 0,0
+		while(branchID!=-1) {//repeat this loop until the branch is equal to negative 1 (will only happen when the user is at an end branch)
+			System.out.println(branchID);//output the branch number to the user (correlates to the branch letter in alphabetical order)
+			for (int i=0; i < 3; i++) {//repeat this loop three times
+				System.out.println(prompts[branchID][i]);//prints out the first three elements of the array in the branchID row
+			}
+			Scanner scan = new Scanner(System.in);//import scanner to use user input
+			String branchChosen = scan.nextLine();//sets the character inputed into the branchChosen variable
+			if(branchChosen.contentEquals("A")) {//if they choose option A
+				branchID = Integer.parseInt(prompts[branchID][3]);//set the branch the user is on to the branch that corresponds with the int in the third column of the same row as the current branch
+			} else if (branchChosen.contentEquals("B")) {//if they choose option B
+				branchID = Integer.parseInt(prompts[branchID][4]);//set the branch the user is on to the branch that corresponds with the int in the fourth column of the same row as the current branch
+			}
+		}
+	}
+}
