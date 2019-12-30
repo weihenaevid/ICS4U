@@ -1,0 +1,38 @@
+/*
+ * Exercise 10.5 - ASSIGNMENT 5 - PALINDROME CHECKER
+ * Viduni Weihena Epa
+ * October 8 2019
+ */
+
+import java.util.Scanner;//import scanner class
+public class E_Assignment7 {
+	static Scanner scan = new Scanner(System.in);//create a scanner object
+	
+	public static void main(String[] args) {
+		say("Please enter your Palindrome");//prompt the user for input
+		String userInput = scan.nextLine();//stores the users input as a variable
+		String strippedString = userInput.replaceAll("\\W", "");//removes all punctuation and spaces from the string the user inputed
+	    String lowerCaseString = strippedString.toLowerCase();//resets all the letter in the string to be lowercase   
+        String reverseString = reverser(lowerCaseString);//identify the reverse of the above string
+              
+		if (lowerCaseString.contentEquals(reverseString)) {//if the string is a palindrome
+			say("This is a Palindrome!");//inform the user
+		}else if (lowerCaseString!=reverseString) {//if not 
+			say("This is not a Palindrome! Please try again.");//inform the user
+		}
+	}
+	
+	public static String reverser(String inputString) {//function to identify the reverse of the string inputed
+		String reversedString = "";//declare and initialize a new string to store the reversed string in 
+		for(int i = inputString.length()-1; i >= 0; i--) {//repeat this loop for every element in the string
+			reversedString = reversedString + inputString.charAt(i);//
+		}
+	return reversedString;//return the reversed string
+	}
+	
+	public static void say (String prompt) {//System.out.println shortcut
+		System.out.println(prompt);//output the prompt to the user
+	}
+}
+
+
