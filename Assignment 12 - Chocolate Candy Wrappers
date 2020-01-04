@@ -1,0 +1,38 @@
+/*
+ * ASSIGNMENT 12 - Chocolate and Wrapper Puzzle
+ * Viduni Weihena Epa
+ * November 14 2019
+ *
+ *Sample Input: intialMoney = 16, barCost = 2, exchangeWrappers = 2				Output: 15
+ *Sample Input: intialMoney = 15, barCost = 1, exchangeWrappers = 3				Output: 22
+ *
+ */
+
+import java.util.Scanner;//import scanner class
+public class Assignment12 {
+	static int counter = 0;//keeps track of the chocolate bars bought/eaten
+
+	public static void main(String[] args) {
+		int intialMoney = 16;//intial money you have to buy chocolate bars
+		int barCost = 2; //how many dollars each bar costs 
+		counter += intialMoney/barCost;//adds the value of how many chocolate bars you can afford to the counter(which keeps track of how many chocolate bars bought/eaten)
+		choc(intialMoney/barCost,2,0);//calls the choc function belows
+		System.out.println(counter);//ouputs the final number of chocolate bars bought/eaten to the consul
+	}
+
+	//numBars is the current amount of chocolate bars you have
+	//exchangeWrappers is the amount of wrappers needed to trade for one chocolate bar
+	//numWrappers is the amount wrappers you currently have
+	public static int choc (int numBars, int exchangeWrappers, int numWrappers) {
+		numWrappers += numBars;//you take bars and eat them (therefore you have the same number of wrappers as you did chocolate bars before)
+		numBars = 0;//bars is set to 0 because there are no chocolate bars left after you eat them
+		if (numWrappers < exchangeWrappers) {//if the number of wrappers is less than the exchange rate then you cannot exchange wrappers for a chocolate bar
+			return 1;//so return 0
+		} else {//if you can exchange wrappers for chocolate bars
+			numBars = numWrappers/exchangeWrappers;//find exactly how many bars you can exchange for
+			counter += numBars;//add that value to the counter
+			numWrappers = numWrappers%exchangeWrappers;//find how many wrappers you have leftover that you cannot exchange (the remainder)
+			return choc(numBars, exchangeWrappers, numWrappers);//recall the function with the same variables (that now have new values)
+		}
+	}
+}
