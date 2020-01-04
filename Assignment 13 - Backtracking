@@ -1,0 +1,78 @@
+/*
+ * Assignment 13 - N-Queens
+ * Viduni Weihena Epa 
+ * November 19 2019
+ */
+
+public class Assignment13 {
+	static int N = 6; //set a value for N (changing the value to this int should not affect the code in any way)
+	public static void main(String[] args) {
+		int board[][] = new int [N][N]; //declare a 2D array to represent the board
+		fill(board);//intialize the 2d array with every element set to 0
+		solve(board,0);//call the recursive function
+		say(board);//print out the formatted final output of the board
+	}
+
+	public static int [][] fill (int [][]a){
+		for(int i = 0; i < N; i++) {//use a for loop to repeat thru each column
+			for (int j = 0; j < N ;j++) {//use a for loop to repeat thru each row (of each each column)
+				a[i][j] = 0;//set each element to 0
+			}
+		}
+		return a;//return the initialized array
+	}
+	
+	public static boolean checkSafe(int [][]a, int x, int y) {//x represents the row, y represents the column
+		for(int i = 0; i < N; i++) {//use a for loop to check all possibilities
+			if (a [x][i] == 1) {//checks the current element for a present queen (as the loop repeats the row number stays the same, the element increases by 1)
+				return false;//if there is already a queen present it is not safe to place a queen - return false
+			}
+			if (a[i][y] == 1) {//checks the current element for a present queen (as the loop repeats the column number stays the same, the element increases by 1)
+				return false;//if there is already a queen present it is not safe to place a queen - return false
+			}
+			
+			for (int j = 0; j < N;j++ ) {//use a for loop to check the diagonals positions for any present queens
+				if(i+j == x+y){//if i+j and x+y are equal that means they are \ diagonal values
+					if (a[i][j]==1) {//checks the current element for a present queen
+						return false;//if there is already a queen present it is not safe to place a queen - return false
+					}
+				}
+				if (i-j == x-y) {//if i+j and x+y are equal that means they are / diagonal values
+					if (a[i][j] == 1) {//checks the current element for a present queen
+						return false;//if there is already a queen present it is not safe to place a queen - return false
+					}
+				}
+			}
+		}
+		return true;//if none of these conditions are false, safe to place a queen		
+	}
+
+
+	public static boolean solve (int board[][], int col) {//col represents the current column number
+		if (col == N) {//base case
+			return true; //if the current column number is equal to N, it is on the last column of the board
+		}else { //else
+			for (int i = 0; i < N; i++) {//use a for loop to explore all possible options (changs the starting position very loop - moves one row down)
+				if (checkSafe(board, i, col)) {//if a queen can be placed safely
+					board[i][col] = 1;//set the current element equal to 1 (place a queen)
+					if (solve(board, col+1)) {//recall the function, looking at the next consecutive column
+						return true;//
+					}
+				}//after finding that not all N queens can be placed on the board
+				//backtracking - multiple options possible - explore an option and if not possible set everything back to original and try other options
+				board[i][col]=0;//set the position back to zero and retry the process starting from the next consecutive row down
+			}
+			return false;
+		}
+	}
+
+	public static void say(int[][] a) {
+		for (int i =0; i< N;i++) {//go through each row
+			for (int j = 0; j < N;j++) {//go through each colomn
+				//System.out.print - prints all of the elements for that row on the same line
+				System.out.print(a[i][j] + " ");//print the current element (add a space so elements are spaced out)
+			}
+			System.out.println("");//sets the starting point for printing the next row elements on new line
+		}
+	}
+}
