@@ -1,0 +1,163 @@
+1.2 Exercises
+1. Trace the execution of the above gcd function to find the greatest common divisor of
+(a) m = 20 and n = 28
+gcd(20,28)
+	gcd(20,8)
+		gcd(8,12)
+			gcd(8,4)
+				gcd(4,4)
+				Returns 4
+			Returns 4
+		Returns 4
+	Returns 4
+Returns 4
+
+(b) m = 129 and n = 991
+gcd(129,991)
+        gcd(129,862)
+                gcd(129,733)
+                        gcd(129,604)
+                                gcd(129,475)
+                                        gcd(129,346)
+                                                gcd(129,217)
+                                                        gcd(129,88)
+                                                                gcd(88,41)
+                                                                        gcd(41,47)
+                                                                                gcd(41,6)
+                                                                                        gcd(6,35)
+                                                                                                gcd(6,29)
+                                                                                                        gcd(6,23)
+                                                                                                                gcd(6,17)
+                                                                                                                        gcd(6,11)
+									gcd(6,5)
+                                                                                                                                        gcd(5,1)
+                                                                                                                                                gcd(1,4)
+                                                                                                                                                        gcd(1,3)
+                                                                                                                                                                gcd(1,2)
+                                                                                                                                                                        gcd(1,1)
+										  	           Returns1
+											Return 1
+										Return 1
+									Return 1
+								Return 1
+
+2. Trace the execution of calculateTerm shown below, given an initial parameter of 3.
+
+public static int calculateTerm (int n){
+if (n < 0){
+System.out.println("Invalid argument: 0 returned");
+return 0;
+}else if (n == 0)
+return 1;
+else
+return 2 + 0.5 * calculateTerm(n-1);
+}
+calc(3)
+	calc(2)
+		calc(1)
+calc(0)
+	returns 1
+return 1*0.5 +2 = 2.5
+	return 2.5*0.5+2 = 3.25
+return 3.25*0.5+2=3.625
+
+		
+
+
+3. What is wrong with these methods?
+(a) public static double bad (double a, double b){   	
+a = a/2;
+b = b*2;
+return bad(a,b);
+}
+
+There is no base case/simple case
+The function will repeat forever
+Solution add a base case and a simple case
+
+
+
+
+(b) public static int badTwo (int n){
+if (n < 1)
+return 0;
+else if (n == 1)
+return 5;
+else return 2*badTwo(n+1) + 3;
+
+badTwo(n+1) = the function is increasing
+It will never reach the base case (n==1)
+Bc the function is increasing and the base case is a low number
+Solution: change (n+1) to (n-1) so the function is decreasing or change (n==1) to a higher value
+
+
+4.(a) 
+public static long factorial (long n) {
+if (n < 0) {
+		System.out.println("Invalid argument: 0 returned");
+		return 0;
+	}
+	else if (n==1) {//base case
+		return 1;
+	} 
+	else //complex case
+		return(n*factorial(n-1));
+	} 
+
+
+(b) Write a non-recursive version of factorial.
+public static long factorial (long n) {
+	long total = 1;//variable to accumulate total
+//i must equal 1 not 0 (0 times any number is 0 while 1 time any number is 1)
+//i must be <=n because it needs to be multiplied by the actual value of n
+for (long i = 1; i<=n;i++) {
+//multiply the previous total by i (as the loop repeats i will be every number between 1 and 20)		
+total = total * i;
+}
+	return total; //return the final total to the user
+}
+
+(c) Which version is more efficient? Justify your answer.
+Recursion is generally preferred over loops because it simplifies the problem and one does less work. Although loops may be faster at times, recursion simplifies the problem to an extent that once you understand the structure of recursion, the base case and complex case, then it is easier to tweak your code to fit the problem compared to if you were doing the same problem with loops. 
+
+2.2 Exercises
+1. We previously developed and implemented an algorithm for reversing a string. Another approach to this problem is to proceed as follows:
+To reverse a string
+if the string is not empty
+reverse the string up to, but not including, the last character
+place the last character at the front of the string
+Write a recursive method that implements this algorithm. The method should have a header identical to the one we previously developed.
+public static String reverse (String s) {
+		if (s.length() > 0) {//if the string is not empty
+			//add the last character to the remaining reversed string 
+			return s.charAt(s.length()-1) + reverse(s.substring(0,s.length()-1));
+		}
+		else {
+			return "";
+		}
+	}
+
+
+2. Yet another way to create the reversal of a string is to place the reversal of the second half in front of the reversal of the first half.
+(a) State this algorithm by completing the following, using the style shown in the previous question.To reverse a string …
+To reverse a string
+	If the string is not empty
+	Reverse the first half of the string
+Reverse the second half of the string
+Reattach the strings
+(b) Write the recursive method that implements this algorithm. The method should have a header identical to the one we previously developed.
+	public static String reverse (String s) {
+		if (s.length() > 0) {//if the string is not empty	
+			if (s.length()%2 != 0) {//if the string does not contain an even amount of characters
+				s = s.concat(" ");//add a 'space' to the end of the string
+			}
+				int mid = s.length()/2; //find the middle of the String
+				String a = s.charAt(mid-1) + reverse(s.substring(0,mid-1));//reverses the first half of the String 
+				String b = s.charAt(s.length()-1) + reverse(s.substring(mid,s.length()-1));//reverses the second half of the String 
+				return b + a; //calls the function again with a combined String (both a and b)	
+		}
+		else {
+			return "";
+		}
+	}
+
